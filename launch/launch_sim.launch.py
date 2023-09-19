@@ -36,14 +36,6 @@ def generate_launch_description():
                         arguments=['-topic', 'robot_description',
                                    '-entity', 'diff_bot'],
                         output='screen')
-    
-    # This causes the robot to appear
-    publisher_ = Node(package='joint_state_publisher', executable='joint_state_publisher')
-    # This causes the robot to appear
-    gui = Node(package='joint_state_publisher_gui', executable='joint_state_publisher_gui')
-    # This causes the robot to appear
-    rviz = Node(package='rviz2', executable='rviz2')
-
 
 
     # Launch them all!
@@ -51,8 +43,4 @@ def generate_launch_description():
         rsp,
         gazebo,
         spawn_entity,
-        publisher_,
-        gui,
-        rviz,
-
     ])

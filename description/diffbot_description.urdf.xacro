@@ -52,14 +52,14 @@
    <!-- Base Link -->
    <link name="base_link">
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0.0575" rpy="0 0 0"/>
       <geometry>
         <box size="${base_width} ${base_length} ${base_height}"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+      <origin xyz="0 0 0.0575" rpy="0 0 0"/>
       <geometry>
         <box size="${base_width} ${base_length} ${base_height}"/>
       </geometry>
@@ -67,7 +67,7 @@
     </visual>
 
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0.0575" rpy="0 0 0"/>
       <mass value="${base_mass}"/>
       <inertia
         ixx="${base_mass / 12.0 * (base_length*base_length + base_height*base_height)}" ixy="0.0" ixz="0.0"
@@ -85,7 +85,7 @@
     <joint name="left_wheel_joint" type="continuous">
       <parent link="base_link"/>
       <child link="left_wheel"/>
-      <origin xyz="0 -${base_width/2} ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="0 -${base_width/2} 0.015" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.2"/>
     </joint>
@@ -126,7 +126,7 @@
     <joint name="$right_wheel_joint" type="continuous">
       <parent link="base_link"/>
       <child link="right_wheel"/>
-      <origin xyz="0 ${base_width/2} ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="0 ${base_width/2} 0.015" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.2"/>
     </joint>
@@ -167,20 +167,20 @@
     <joint name="caster_frontal_wheel_joint" type="fixed">
       <parent link="base_link"/>
       <child link="caster_frontal_wheel"/>
-      <origin xyz="${base_width/2 - caster_wheel_radius} 0 ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="${base_width/2 - caster_wheel_radius} 0 0" rpy="0 0 0"/>
     </joint>
 
     <!-- caster frontal wheel Link -->
     <link name="caster_frontal_wheel">
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <geometry>
           <sphere radius="${caster_wheel_radius}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <geometry>
           <sphere radius="${caster_wheel_radius}"/>
         </geometry>
@@ -188,7 +188,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <mass value="${caster_wheel_mass}"/>
         <inertia
           ixx="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}" ixy="0.0" ixz="0.0"
@@ -205,20 +205,20 @@
     <joint name="caster_rear_wheel_joint" type="fixed">
       <parent link="base_link"/>
       <child link="caster_rear_wheel"/>
-      <origin xyz="${-base_width/2 + caster_wheel_radius} 0 ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="${-base_width/2 + caster_wheel_radius} 0 0" rpy="0 0 0"/>
     </joint>
 
     <!-- caster rear wheel Link -->
     <link name="caster_rear_wheel">
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <geometry>
           <sphere radius="${caster_wheel_radius}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <geometry>
           <sphere radius="${caster_wheel_radius}"/>
         </geometry>
@@ -226,7 +226,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${caster_wheel_radius}" rpy="0 0 0"/>
         <mass value="${caster_wheel_mass}"/>
         <inertia
           ixx="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}" ixy="0.0" ixz="0.0"
