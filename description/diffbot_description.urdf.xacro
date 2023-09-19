@@ -77,6 +77,11 @@
     </link>
 
 
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+
     <joint name="left_wheel_joint" type="continuous">
       <parent link="base_link"/>
       <child link="left_wheel"/>
@@ -111,6 +116,11 @@
           izz="${wheel_mass / 12.0 * wheel_radius*wheel_radius}"/>
         </inertial>
       </link>
+
+
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
 
 
     <joint name="$right_wheel_joint" type="continuous">
@@ -149,6 +159,11 @@
      </link>
 
 
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+
     <joint name="caster_frontal_wheel_joint" type="fixed">
       <parent link="base_link"/>
       <child link="caster_frontal_wheel"/>
@@ -182,6 +197,11 @@
         </inertial>
       </link>
 
+
+    <gazebo reference="caster_frontal_wheel">
+        <material>Gazebo/White</material>
+    </gazebo>
+
     <joint name="caster_rear_wheel_joint" type="fixed">
       <parent link="base_link"/>
       <child link="caster_rear_wheel"/>
@@ -214,6 +234,11 @@
           izz="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}"/>
         </inertial>
       </link>
+
+    <gazebo reference="caster_rear_wheel">
+        <material>Gazebo/White</material>
+    </gazebo>
+      
 
 
 
