@@ -29,8 +29,7 @@ def generate_launch_description():
         parameters=[params]
     )
 
-    # This causes the robot to appear
-    publisher_ = Node(package='joint_state_publisher', executable='joint_state_publisher')
+  
     # This causes the robot to appear
     gui = Node(package='joint_state_publisher_gui', executable='joint_state_publisher_gui')
     # This causes the robot to appear
@@ -44,7 +43,6 @@ def generate_launch_description():
             description='Use sim time if true'),
 
         node_robot_state_publisher,
-        publisher_,
         gui,
         rviz,
     ])
