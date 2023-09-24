@@ -123,7 +123,7 @@
     </gazebo>
 
 
-    <joint name="$right_wheel_joint" type="continuous">
+    <joint name="right_wheel_joint" type="continuous">
       <parent link="base_link"/>
       <child link="right_wheel"/>
       <origin xyz="0 ${base_width/2} 0.015" rpy="0 0 0"/>

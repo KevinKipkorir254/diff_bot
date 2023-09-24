@@ -3,9 +3,10 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, Command, FindExecutable, PathJoinSubstitution
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 
 import xacro
 
@@ -29,9 +30,57 @@ def generate_launch_description():
         parameters=[params]
     )
 
+
+
+    # Get URDF via xacro
+    robot_description_content = Command(
+        [
+            PathJoinSubstitution([FindExecutable(name="xacro")]),
+            " ",
+            PathJoinSubstitution(
+                [FindPackageShare("diff_bot"), "description", "robot.urdf.xacro"]
+            ),
+        ]
+    )
+    robot_description = {"robot_description": robot_description_content}
+
+    robot_controllers = PathJoinSubstitution(
+        [
+            FindPackageShare("diff_bot"),
+            "config",
+            "diffbot_controllers.yaml",
+        ]
+    )
+
+
+    control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[robot_description, robot_controllers],
+        output="both",
+    )
   
+
+
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
+    
+    robot_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diffbot_base_controller", "--controller-manager", "/controller_manager"],
+    )
+
+
+
+
+
     # This causes the robot to appear
-    gui = Node(package='joint_state_publisher_gui', executable='joint_state_publisher_gui')
+    jsp = Node(package='joint_state_publisher', executable='joint_state_publisher')
     # This causes the robot to appear
     rviz = Node(package='rviz2', executable='rviz2')
 
@@ -43,6 +92,9 @@ def generate_launch_description():
             description='Use sim time if true'),
 
         node_robot_state_publisher,
-        gui,
+        jsp,
         rviz,
+        control_node,
+        joint_state_broadcaster_spawner,
+        robot_controller_spawner,
     ])
